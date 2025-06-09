@@ -1,15 +1,17 @@
+@TestOn('browser')
+library howler_test;
+
 import 'package:howler/howler.dart';
 import 'package:swiss_knife/swiss_knife.dart';
 import 'package:test/test.dart';
 
-@TestOn('browser')
-void _sleep(int sleepMs) async {
+Future<void> _sleep(int sleepMs) async {
   if (sleepMs <= 0) return;
   print('SLEEP> ${sleepMs}ms');
   await Future.delayed(Duration(milliseconds: sleepMs), () {});
 }
 
-void _sleepUntilCondition(
+Future<void> _sleepUntilCondition(
     String conditionName, int timeout, bool Function() conditionTester) async {
   print('-------------------------------------');
   print('SLEEP UNTIL CONDITION[$conditionName]> timeout: $timeout');
