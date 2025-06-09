@@ -12,7 +12,10 @@ Future<void> _sleep(int sleepMs) async {
 }
 
 Future<void> _sleepUntilCondition(
-    String conditionName, int timeout, bool Function() conditionTester) async {
+  String conditionName,
+  int timeout,
+  bool Function() conditionTester,
+) async {
   print('-------------------------------------');
   print('SLEEP UNTIL CONDITION[$conditionName]> timeout: $timeout');
 
@@ -36,7 +39,8 @@ Future<void> _sleepUntilCondition(
       }
 
       print(
-          'sleep: $sleep ; elapsed: $elapsed ; remaining: $remaining ; timeout: $timeout');
+        'sleep: $sleep ; elapsed: $elapsed ; remaining: $remaining ; timeout: $timeout',
+      );
       await _sleep(sleep);
     } else {
       break;
@@ -52,9 +56,12 @@ void main() {
     test('Basic load', () async {
       print('Uri Base: ${getUriBase()}');
 
-      var howl = Howl(src: [
-        'piano-sample.mp3',
-      ], loop: false, preload: false, volume: 0.60);
+      var howl = Howl(
+        src: ['piano-sample.mp3'],
+        loop: false,
+        preload: false,
+        volume: 0.60,
+      );
 
       prints('Howl: $howl');
 
@@ -74,7 +81,10 @@ void main() {
       expect(howl.playing(), isTrue);
 
       await _sleepUntilCondition(
-          'howl.getVolume() == 0.90', 5000, () => howl.getVolume() == 0.90);
+        'howl.getVolume() == 0.90',
+        5000,
+        () => howl.getVolume() == 0.90,
+      );
       expect(howl.getVolume(), equals(0.90));
     });
   });
